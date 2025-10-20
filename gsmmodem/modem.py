@@ -259,17 +259,17 @@ class GsmModem(SerialComms):
             # Try to enable general notifications on Wavecom-like device
             enableWind = True
 
-        if enableWind:
-            try:
-                wind = lineStartingWith('+WIND:', self.write('AT+WIND?')) # Check current WIND value; example response: +WIND: 63
-            except CommandError:
-                # Modem does not support +WIND notifications. See if we can detect other known call update notifications
-                pass
-            else:
-                # Enable notifications for call setup, hangup, etc
-                if int(wind[7:]) != 50:
-                    self.write('AT+WIND=50')
-                callUpdateTableHint = 2 # Wavecom
+        # if enableWind:
+        #     try:
+        #         wind = lineStartingWith('+WIND:', self.write('AT+WIND?')) # Check current WIND value; example response: +WIND: 63
+        #     except CommandError:
+        #         # Modem does not support +WIND notifications. See if we can detect other known call update notifications
+        #         pass
+        #     else:
+        #         # Enable notifications for call setup, hangup, etc
+        #         if int(wind[7:]) != 50:
+        #             self.write('AT+WIND=50')
+        #         callUpdateTableHint = 2 # Wavecom
 
         # Attempt to identify modem type directly (if not already) - for outgoing call status updates
         if callUpdateTableHint == 0:
